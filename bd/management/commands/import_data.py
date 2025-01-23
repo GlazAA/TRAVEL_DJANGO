@@ -5,6 +5,7 @@ from django.db import connection
 from pathlib import Path
 from re import compile
 
+
 class Command(BaseCommand):
     help = 'чтение SQL скрипта из файла и выполнение INSERT запросов'
     pat_query_sep = compile(r';\n*')
@@ -16,10 +17,15 @@ class Command(BaseCommand):
         sql_script_path = settings.BASE_DIR / options['sql_script_path']
         sql_script = sql_script_path.read_text(encoding='utf-8')
         
-        querries = self.pat_query_sep.split(sql_script)
+        queries = self.pat_query_sep.split(sql_script)
         try:
-            querries.remove('')
+            queries.remove('')
         except ValueError:
             pass
         
+        with connection.cursor() as cursor:
+            for query in queries:
+                cursor.execute(query)
+            
+            breakpoint()
 

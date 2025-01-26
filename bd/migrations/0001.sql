@@ -18,7 +18,7 @@ CREATE TABLE "bd_clients" (
   "email" varchar(254) NOT NULL, 
   "passport_number" varchar(50) NOT NULL, 
   "mark_for_deletion" bool NULL, 
-  "not_active" bool NOT NULL
+  "not_active" bool NOT NULL DEFAULT 0
 );
 --
 -- Create model Countries
@@ -96,9 +96,9 @@ CREATE TABLE "bd_flights" (
 CREATE TABLE "bd_hotels" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
   "name_hotel" varchar(200) NOT NULL, 
-  "child_menu" bool NOT NULL, 
-  "have_nanny" bool NOT NULL, 
-  "child_program" bool NOT NULL, 
+  "child_menu" bool NOT NULL DEFAULT 0, 
+  "have_nanny" bool NOT NULL DEFAULT 0, 
+  "child_program" bool NOT NULL DEFAULT 0, 
   "hotel_address" text NOT NULL, 
   "geo_coordinates" varchar(100) NULL, 
   "cities_id" bigint NOT NULL REFERENCES "bd_cities" ("id") DEFERRABLE INITIALLY DEFERRED
@@ -141,9 +141,9 @@ CREATE TABLE "bd_tours" (
 CREATE TABLE "bd_excursions" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
   "name_excursion" varchar(200) NOT NULL, 
-  "night_transfer" bool NOT NULL, 
-  "danger_level" integer NOT NULL, 
-  "child_friendly" bool NOT NULL, 
+  "night_transfer" bool NOT NULL DEFAULT 0, 
+  "danger_level" integer NOT NULL DEFAULT 0, 
+  "child_friendly" bool NOT NULL DEFAULT 0, 
   "duration" integer NOT NULL, 
   "cities_id" bigint NOT NULL REFERENCES "bd_cities" ("id") DEFERRABLE INITIALLY DEFERRED, 
   "organizations_id" bigint NOT NULL REFERENCES "bd_organizations" ("id") DEFERRABLE INITIALLY DEFERRED, 
